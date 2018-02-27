@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>找出不同色块</title>
+	  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui">
+      <script src="http://code.jquery.com/jquery-latest.js"></script>
+      <style>
+      	#box{ 
+      		margin: 0 auto;
+      		display:table;
+      		margin-top:30vw;
+      		width: 90vw;
+      		height: 90vw;
+      		background-color: gray;
+      	}
+      	#box button{height:100%;width:100%;border: 2px solid gray;background-color: black;color:#fff; font-size: 50px;}
+      </style>
+</head>
+<body>
+	<div>
+		<p>得分：<span>0</span></p>
+		<div id="box">
+			<button style="background-color: red;">游戏开始</button>
+		</div>
+	</div>
+	<script>
+		map=[2,3,4,4,5,5,5,6,6,6,6,6,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9];
+		n=0;
+		var flag=0;
+		var acolor=255;
+		var b;
+		var y=0;
+		var z=0;
+		$("#box").on('click','button',function(){
+			console.log($(this).parent().find("button").css('background-color'));
+			if($(this).parent().find("button").css('background-color')=="rgb("+acolor+", "+y+", "+z+")"){
+				acolor=Math.floor(Math.random()*200);
+				y=Math.floor(Math.random()*255);
+				z=Math.floor(Math.random()*255);
+				b=acolor+50;
+				var html="";
+				for(var i=0;i<map[n];i++){
+					html+="<tr>";
+					for(var j=0;j<map[n];j++){
+						html+="<td><button></button></td>";
+					}
+					html+="</tr>";
+				}
+				$("#box").html(html);
+				$("#box button").css("background-color","rgb("+b+", "+y+", "+z+")");
+				flag=Math.floor(Math.random() *map[n]*map[n]);
+				$("#box button:eq("+flag+")").css("background-color","rgb("+acolor+", "+y+", "+z+")");
+				$("span").html(n);
+				n=n+1;
+			}
+				else{
+					var html="<button>游戏结束</button>";
+					$("#box").html(html);
+				}	
+			});
+	</script>
+</body>
+</html>
